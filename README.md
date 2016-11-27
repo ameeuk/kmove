@@ -1,2 +1,2 @@
 # kmove
-web project
+web project using CRUD
