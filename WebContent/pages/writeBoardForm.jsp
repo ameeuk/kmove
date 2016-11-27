@@ -6,18 +6,34 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>공지사항 등록</title>
+<title>A/S 등록</title>
 </head>
 <body>
-<form action="./writeNotice.jsp" method="post" align="center">
+<form action="./writeBoard.jsp" method="post">
 <table border="1" align="center">
   <tr>
-    <th scope="row">제목</th>
+    <th scope="row" width=20%>제목</th>
     <td><input type="text" name="title" size="50" required></td>
   </tr>
   <tr>
     <th scope="row">작성자</th>
     <td>세션에서 가져오기<input type="text" name="writer" size="20"></td>
+  </tr>
+  <tr>
+    <th scope="row">모델명</th>
+    <td><input type="text" name="model" size="50"></td>
+  </tr>
+  <tr>
+    <th scope="row">제품군</th>
+    <td>
+        <select name="category" size="1">
+        <option value="mouse">마우스</option>
+        <option value="keyboard">키보드</option>
+        <option value="headphone">헤드폰</option>
+        <option value="chair">의자</option>
+        <option value="etc">기타</option>
+        </select>
+    </td>
   </tr>
   <tr>
     <th scope="row">내용</th>

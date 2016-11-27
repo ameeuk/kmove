@@ -11,22 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeDao;
+import dao.BoardDao;
 import jdbc.connection.ConnectionProvider;
-import model.NoticeListView;
-import jdbc.util.JdbcUtil;;
+import jdbc.util.JdbcUtil;
+import model.BoardListView;
 
 /**
- * Servlet implementation class NoticeView
+ * Servlet implementation class BoardSearch
  */
-@WebServlet("/NoticeView")
-public class NoticeView extends HttpServlet {
+@WebServlet("/BoardSearch")
+public class BoardSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public NoticeView() {
+	public BoardSearch() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,42 +39,38 @@ public class NoticeView extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=euk-kr");
+		request.setCharacterEncoding("euc-kr");
 
 		String pageNumberStr = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
 		int pageNumber = 1;
 		if (pageNumberStr != null) {
 			pageNumber = Integer.parseInt(pageNumberStr);
 		}
-		/*
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found : " + e);
-		}
-*/
+
 		Connection conn = null;
-		NoticeDao noticeDao = null;
-		NoticeListView noticeList = null;
+		BoardDao boardDao = null;
+		BoardListView boardList = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			noticeDao = new NoticeDao();
-
+			boardDao = new BoardDao();
 			try {
-				noticeList = noticeDao.getNoticeList(conn, pageNumber);
+				boardList = boardDao.getSearchList(conn, pageNumber, keyword);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
 
-		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("listModel", noticeList.getMessageList());
+		request.setAttribute("boardList", boardList);
+		request.setAttribute("listModel", boardList.getMessageList());
 
 		// JSP로 작업을 부탁할 RequestDispatcher를 인스턴스화 합니다.
-		RequestDispatcher view = request.getRequestDispatcher("/pages/notice_view.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/pages/board_view.jsp");
 
 		// RequestDispatcher는 컨테이너에게 JSP를 준비하라고 요청합니다. 그 다음 JSP에게
 		// request/response 객체를 넘깁니다.

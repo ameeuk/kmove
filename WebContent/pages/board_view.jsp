@@ -14,28 +14,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>공지사항</title>
+<title>A/S게시판</title>
 </head>
 <body>
 <table width="980" border="1"  cellspacing="0" align="center">
 <c:choose>	
-	<c:when test="${noticeList.messageTotalCount == 0 }">
+	<c:when test="${boardList.messageTotalCount == 0 }">
 		<center>등록된 글이 없습니다.</center><br>
-		<center><a href="/kmove/NoticeView">[목록으로]</a>&nbsp;&nbsp;<a href="/kmove/pages/writeNoticeForm.jsp">[글쓰기]</a></center>
+		<center><a href="/kmove/BoardView">[목록으로]</a>&nbsp;&nbsp;<a href="/kmove/pages/writeBoardForm.jsp">[글쓰기]</a></center>
 	</c:when>
 	<c:otherwise>
 		<tr>
 	    	<th width="10%" scope="col">번호</th>
-	    	<th width="15%" scope="col">제목</th>
+	    	<th width="15%" scope="col">제품군</th>
+	    	<th width="40%" scope="col">제목</th>
 	    	<th width="15%" scope="col">글쓴이</th>
 	    	<th width="20%" scope="col">등록일</th>
 	  	</tr>
-		<c:forEach var="notice" items="${listModel}">
+		<c:forEach var="board" items="${listModel}">
 		<tr>
-			<td align="center">${notice.id}</td>
-			<td><a href="/kmove/NoticeDetailView?id=${notice.id}">${notice.title}</a></td>
-			<td align="center">${notice.writer}</td>
-			<td align="center">${notice.postingDate}</td>
+			<td align="center">${board.id}</td>
+			<td align="center">${board.category}</td>
+			<td><a href="/kmove/BoardDetailView?id=${board.id}">${board.title}</a></td>
+			<td align="center">${board.writer}</td>
+			<td align="center">${board.postingDate}</td>
 		</tr>
 		</c:forEach>
 		
@@ -43,18 +45,18 @@
 		<tr>
     	<td width=30%>
     	
-    	<c:forEach var="i" begin="1" end="${noticeList.pageTotalCount-1}">
+    	<c:forEach var="i" begin="1" end="${boardList.pageTotalCount-1}">
     	<a href="/kmove/NoticeView?page=${i}">[${i}]</a>
     	</c:forEach>
       
 	    </td>
 	    <td align="center" WIDTH="30%">
-	    <form action="/kmove/NoticeSearch" method="post" accept-charset="euc-kr">
+	    <form action="/kmove/BoardSearch" method="post" accept-charset="euc-kr">
 		<input type="text" size="20" maxlength="30" name="keyword" />
 		<input type="submit" value="검색" />
 	    </form>
 	    </td>
-	    <td align="right" WIDTH="30%"><a href="/kmove/pages/writeNoticeForm.jsp">[글쓰기]</a></td>
+	    <td align="right" WIDTH="30%"><a href="/kmove/pages/writeBoardForm.jsp">[글쓰기]</a></td>
 		</tr>
 		</table>
 	</c:otherwise>

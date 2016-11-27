@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="jdbc.util.JdbcUtil"%>
-<%@ page import="model.Notice"%>
-<%@ page import="dao.NoticeDao"%>
+<%@ page import="model.Board"%>
+<%@ page import="dao.BoardDao"%>
 <%@ page import="jdbc.connection.ConnectionProvider"%>
 
-<%-- notice_modify.jsp로 부터 입력받은 값으로 수정 NoticeDao.java의 update 실행--%>
+<%-- board_modify.jsp로 부터 입력받은 값으로 수정 BoardDao.java의 update 실행--%>
 <%request.setCharacterEncoding("euc-kr");%>
-<jsp:useBean id="notice" class="model.Notice"/>
-<jsp:setProperty property="*" name="notice"/>
+<jsp:useBean id="board" class="model.Board"/>
+<jsp:setProperty property="*" name="board"/>
 <% 
 		 try{
 		     Connection conn = ConnectionProvider.getConnection();
 		 	try {
-		 		NoticeDao noticedao = new NoticeDao();
-		 		noticedao.update(conn, notice);
+		 		BoardDao boarddao = new BoardDao();
+		 		boarddao.update(conn, board);
 		 	} catch (SQLException e) {
 		 		e.printStackTrace();
 		 	} finally {
@@ -37,8 +37,7 @@
 <body>
 <script>
 self.window.alert("글이 수정되었습니다.");
-location.href = "/kmove/NoticeDetailView?id=${notice.id}";
+location.href = "/kmove/BoardDetailView?id=${board.id}";
 </script>
-
 </body>
 </html>

@@ -4,29 +4,28 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeDao;
+import dao.BoardDao;
 import jdbc.connection.ConnectionProvider;
-import model.NoticeListView;
-import jdbc.util.JdbcUtil;;
+import jdbc.util.JdbcUtil;
+
 
 /**
- * Servlet implementation class NoticeView
+ * Servlet implementation class BoardDelete
  */
-@WebServlet("/NoticeView")
-public class NoticeView extends HttpServlet {
+@WebServlet("/BoardDelete")
+public class BoardDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public NoticeView() {
+	public BoardDelete() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,45 +39,27 @@ public class NoticeView extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=euk-kr");
 
-		String pageNumberStr = request.getParameter("page");
-		int pageNumber = 1;
-		if (pageNumberStr != null) {
-			pageNumber = Integer.parseInt(pageNumberStr);
-		}
-		/*
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found : " + e);
-		}
-*/
+		// id 값을 기준으로 해당 DB를 모두 불러옴.
+		String id = request.getParameter("id"); // 게시판에서 title 누르면 해당 게시글의 id 값
+												// 넘겨줌
+
 		Connection conn = null;
-		NoticeDao noticeDao = null;
-		NoticeListView noticeList = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			noticeDao = new NoticeDao();
-
-			try {
-				noticeList = noticeDao.getNoticeList(conn, pageNumber);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		BoardDao boardDao;
+		try {
+			boardDao = new BoardDao();
+			boardDao.delete(conn, id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
 
-		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("listModel", noticeList.getMessageList());
-
-		// JSP로 작업을 부탁할 RequestDispatcher를 인스턴스화 합니다.
-		RequestDispatcher view = request.getRequestDispatcher("/pages/notice_view.jsp");
-
-		// RequestDispatcher는 컨테이너에게 JSP를 준비하라고 요청합니다. 그 다음 JSP에게
-		// request/response 객체를 넘깁니다.
-		view.forward(request, response);
+		response.sendRedirect("BoardView");
 	}
 
 	/**

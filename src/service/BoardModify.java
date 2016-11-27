@@ -11,22 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeDao;
+import dao.BoardDao;
 import jdbc.connection.ConnectionProvider;
-import model.NoticeListView;
-import jdbc.util.JdbcUtil;;
+import jdbc.util.JdbcUtil;
+import model.Board;
 
 /**
- * Servlet implementation class NoticeView
+ * Servlet implementation class BoardModify
  */
-@WebServlet("/NoticeView")
-public class NoticeView extends HttpServlet {
+@WebServlet("/BoardModify")
+public class BoardModify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public NoticeView() {
+	public BoardModify() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,41 +40,30 @@ public class NoticeView extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=euk-kr");
 
-		String pageNumberStr = request.getParameter("page");
-		int pageNumber = 1;
-		if (pageNumberStr != null) {
-			pageNumber = Integer.parseInt(pageNumberStr);
-		}
-		/*
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found : " + e);
-		}
-*/
+		// id 값을 기준으로 해당 DB를 모두 불러옴.
+		String id = request.getParameter("id"); // 게시판에서 title 누르면 해당 게시글의 id 값을 넘겨줌
+
 		Connection conn = null;
-		NoticeDao noticeDao = null;
-		NoticeListView noticeList = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			noticeDao = new NoticeDao();
-
-			try {
-				noticeList = noticeDao.getNoticeList(conn, pageNumber);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		Board board = new Board();
+		BoardDao boardDao;
+		try {
+			boardDao = new BoardDao();
+			board = boardDao.select(conn, id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
 
-		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("listModel", noticeList.getMessageList());
+		request.setAttribute("board", board); // EL식을 사용하기 위해
 
 		// JSP로 작업을 부탁할 RequestDispatcher를 인스턴스화 합니다.
-		RequestDispatcher view = request.getRequestDispatcher("/pages/notice_view.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/pages/board_modify.jsp");
 
 		// RequestDispatcher는 컨테이너에게 JSP를 준비하라고 요청합니다. 그 다음 JSP에게
 		// request/response 객체를 넘깁니다.
