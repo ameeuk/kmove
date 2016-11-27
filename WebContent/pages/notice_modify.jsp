@@ -12,10 +12,10 @@
 
 <form action="/kmove/pages/modifyNotice.jsp" method="post">
 <input type="hidden" name="id" value="${notice.id}">
-<table width="200" border="1">
+<table border="1" align="center">
   <tr>
     <th scope="row">제목</th>
-    <td><input type="text" name="title" size="20" value="${notice.title}" required></td>
+    <td><input type="text" name="title" size="50" value="${notice.title}" required></td>
   </tr>
   <tr>
     <th scope="row">작성자</th>
@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <th scope="row">내용</th>
-    <td><textarea name="content" cols="40" rows="5" required>${notice.content}</textarea></td>
+    <td><textarea name="content" cols="50" rows="10" required>${notice.content}</textarea></td>
   </tr>
   <tr>
     <th colspan="2" scope="row"><input type="submit" value="확인"/>&nbsp;<input type="button" value="뒤로가기" onclick="history.back();" /></th> 
