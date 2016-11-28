@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix= "tool" uri= "/WEB-INF/tld/tools.tld" %>
 
 <%--게시글 수정 페이지. notice_detail.jsp의 수정 버튼을 누르면 NoticeModify.java를 거쳐 기존의 값을 가져옴 --%>
 <!DOCTYPE html>
@@ -9,6 +10,9 @@
 <title>공지사항 수정</title>
 </head>
 <body>
+<tool:shading/>
+<center><font size="5">공지 수정</font></center>
+<tool:shading/>
 
 <form action="/kmove/pages/modifyNotice.jsp" method="post">
 <input type="hidden" name="id" value="${notice.id}">

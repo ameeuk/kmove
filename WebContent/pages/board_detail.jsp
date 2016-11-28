@@ -5,6 +5,8 @@
 <%@ page import="dao.BoardDao"%>
 <%@ page import="model.Board"%>
 <%@ page import="java.util.*"%>
+<%@taglib prefix= "tool" uri= "/WEB-INF/tld/tools.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--게시글 상세 페이지. board_view.jsp에서 title 부분을 클릭하면 상세페이지로 이동 --%>
 <%--
@@ -31,6 +33,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>A/S게시판</title>
 </head>
+<tool:shading/>
+<center><font size="5">A/S 게시판</font></center>
+<tool:shading/>
+
 <body>
 <table width="500" border="1" align="center">
   <tr>
@@ -46,7 +52,12 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-    <a href="/kmove/BoardModify?id=${board.id}">[수정]</a>&nbsp;&nbsp;<a href="/kmove/BoardDelete?id=${board.id}">[삭제]</a>
+     <c:set value="ameeuk" var="ID"/>
+   	<c:if test="${board.id==board.id}">
+   	글쓴이 아이디와 로그인한 사람의 아이디가 같아야 [수정],[삭제] 버튼이 나타남
+   	<a href="/kmove/BoardModify?id=${board.id}">[수정]</a>&nbsp;&nbsp;<a href="/kmove/BoardDelete?id=${board.id}">[삭제]</a>
+   	</c:if>
+    
     <a href="/kmove/BoardView">[목록으로]</a></td>
   </tr>
 </table>

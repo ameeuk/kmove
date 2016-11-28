@@ -5,7 +5,7 @@
 <%@ page import="dao.NoticeDao"%>
 <%@ page import="model.Notice"%>
 <%@ page import="java.util.*"%>
-
+<%@taglib prefix= "tool" uri= "/WEB-INF/tld/tools.tld" %>
 <%--게시글 상세 페이지. notice_view.jsp에서 title 부분을 클릭하면 상세페이지로 이동 --%>
 <%--
 		//id 값을 기준으로 해당 DB를 모두 불러옴. 
@@ -32,6 +32,10 @@
 <title>공지사항</title>
 </head>
 <body>
+<tool:shading/>
+<center><font size="5">공지사항</font></center>
+<tool:shading/>
+
 <table width="500" border="1" align="center">
   <tr>
     <td>${notice.title}</td>

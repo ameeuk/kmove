@@ -8,6 +8,7 @@
 <%@ page import="jdbc.util.JdbcUtil"%>
 <%@ page import="jdbc.connection.ConnectionProvider"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@taglib prefix= "tool" uri= "/WEB-INF/tld/tools.tld" %>
 
 <%--게시글 목록. NoticeView.java 서블릿을 실행하면 이 페이지로 목록을 뿌림 --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,6 +18,10 @@
 <title>공지사항</title>
 </head>
 <body>
+<tool:shading/>
+<center><font size="5">공지사항</font></center>
+<tool:shading/>
+
 <table width="980" border="1"  cellspacing="0" align="center">
 <c:choose>	
 	<c:when test="${noticeList.messageTotalCount == 0 }">
