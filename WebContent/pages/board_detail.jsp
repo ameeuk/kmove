@@ -32,29 +32,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>A/S게시판</title>
+
+<body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 </head>
 <tool:shading/>
 <center><font size="5">A/S 게시판</font></center>
 <tool:shading/>
 
-<body>
-<table width="500" border="1" align="center">
-  <tr>
+<table width="500" border="0" align="center" cellpadding="10">
+  <tr bgcolor="FFD88E">
     <td width="70%">${board.title}</td>
     <td align="right">글쓴이:${board.writer}</td>
   </tr>
-  <tr>
+  <tr bgcolor="FFD88E">
     <td align="left">제품군:[${board.category}]<br>모델명:${board.model}</td>
     <td align="right">${board.postingDate}</td>
   </tr>
   <tr>
-    <td colspan="2" height="300"><center>${board.content}</center></td>
+    <td colspan="2" height="300" bgcolor="FFFBF2"><center>${board.content}</center></td>
   </tr>
-  <tr>
-    <td colspan="2" align="center">
-     <c:set value="ameeuk" var="ID"/>
-   	<c:if test="${board.id==board.id}">
-   	글쓴이 아이디와 로그인한 사람의 아이디가 같아야 [수정],[삭제] 버튼이 나타남
+  <tr bgcolor="FFD88E">
+    <td colspan="2" align="center" >
+    <!--글쓴이 아이디와 로그인한 사람의 아이디가 같아야 [수정],[삭제] 버튼이 나타남 -->
+    <c:if test="${board.writer==authUser.id }">
    	<a href="/kmove/BoardModify?id=${board.id}">[수정]</a>&nbsp;&nbsp;<a href="/kmove/BoardDelete?id=${board.id}">[삭제]</a>
    	</c:if>
     
@@ -62,5 +66,8 @@
   </tr>
 </table>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>

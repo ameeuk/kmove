@@ -6,6 +6,8 @@
 <%@ page import="model.Notice"%>
 <%@ page import="java.util.*"%>
 <%@taglib prefix= "tool" uri= "/WEB-INF/tld/tools.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--게시글 상세 페이지. notice_view.jsp에서 title 부분을 클릭하면 상세페이지로 이동 --%>
 <%--
 		//id 값을 기준으로 해당 DB를 모두 불러옴. 
@@ -32,27 +34,37 @@
 <title>공지사항</title>
 </head>
 <body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 <tool:shading/>
 <center><font size="5">공지사항</font></center>
 <tool:shading/>
 
-<table width="500" border="1" align="center">
-  <tr>
-    <td>${notice.title}</td>
+<table width="500" border="0" align="center" cellpadding="10">
+  <tr bgcolor="FFD88E">
+    <td >${notice.title}</td>
     <td align="right">${notice.writer}</td>
   </tr>
   <tr>
-    <td colspan="2" align="right">${notice.postingDate}</td>
+    <td colspan="2" align="right" bgcolor="FFFBF2">${notice.postingDate}</td>
   </tr>
   <tr>
-    <td colspan="2" height="300"><center>${notice.content}</center></td>
+    <td colspan="2" height="300" bgcolor="FFFBF2"><center>${notice.content}</center></td>
   </tr>
-  <tr>
+  <tr bgcolor="FFD88E">
     <td colspan="2" align="center">
+    <!--글쓴이 아이디와 로그인한 사람의 아이디가 같아야 [수정],[삭제] 버튼이 나타남 -->
+    <c:if test="${notice.writer==authUser.id }">
     <a href="/kmove/NoticeModify?id=${notice.id}">[수정]</a>&nbsp;&nbsp;<a href="/kmove/NoticeDelete?id=${notice.id}">[삭제]</a>
+    </c:if>
     <a href="/kmove/NoticeView">[목록으로]</a></td>
   </tr>
 </table>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>

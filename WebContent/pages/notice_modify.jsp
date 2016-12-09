@@ -10,30 +10,37 @@
 <title>공지사항 수정</title>
 </head>
 <body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 <tool:shading/>
 <center><font size="5">공지 수정</font></center>
 <tool:shading/>
 
 <form action="/kmove/pages/modifyNotice.jsp" method="post">
 <input type="hidden" name="id" value="${notice.id}">
-<table border="1" align="center">
+<table border="0" align="center" cellpadding="10">
   <tr>
-    <th scope="row">제목</th>
-    <td><input type="text" name="title" size="50" value="${notice.title}" required></td>
+    <th scope="row" bgcolor="FFD88E">제목</th>
+    <td bgcolor="FFFBF2"><input type="text" name="title" size="50" value="${notice.title}" required></td>
   </tr>
   <tr>
-    <th scope="row">작성자</th>
-    <td><input type="hidden" name="writer" value="${notice.writer}">${notice.writer}</td>
+    <th scope="row" bgcolor="FFD88E">작성자</th>
+    <td bgcolor="FFFBF2"><input type="hidden" name="writer" value="${notice.writer}">${notice.writer}</td>
   </tr>
   <tr>
-    <th scope="row">내용</th>
-    <td><textarea name="content" cols="50" rows="10" required>${notice.content}</textarea></td>
+    <th scope="row" bgcolor="FFD88E">내용</th>
+    <td bgcolor="FFFBF2"><textarea name="content" cols="50" rows="10" required>${notice.content}</textarea></td>
   </tr>
   <tr>
-    <th colspan="2" scope="row"><input type="submit" value="확인"/>&nbsp;<input type="button" value="뒤로가기" onclick="history.back();" /></th> 
+    <th colspan="2" scope="row" bgcolor="FFFBF2"><input type="submit" value="확인"/>&nbsp;<input type="button" value="뒤로가기" onclick="history.back();" /></th> 
     </tr>
   </table>
 </form>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>

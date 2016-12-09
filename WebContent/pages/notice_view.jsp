@@ -18,25 +18,29 @@
 <title>공지사항</title>
 </head>
 <body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 <tool:shading/>
 <center><font size="5">공지사항</font></center>
 <tool:shading/>
 
-<table width="980" border="1"  cellspacing="0" align="center">
+<table width="800"  cellspacing="0" align="center" cellpadding="10">
 <c:choose>	
 	<c:when test="${noticeList.messageTotalCount == 0 }">
 		<center>등록된 글이 없습니다.</center><br>
 		<center><a href="/kmove/NoticeView">[목록으로]</a>&nbsp;&nbsp;<a href="/kmove/pages/writeNoticeForm.jsp">[글쓰기]</a></center>
 	</c:when>
 	<c:otherwise>
-		<tr>
+		<tr bgcolor="FFD88E">
 	    	<th width="10%" scope="col">번호</th>
-	    	<th width="15%" scope="col">제목</th>
+	    	<th width="55%" scope="col">제목</th>
 	    	<th width="15%" scope="col">글쓴이</th>
 	    	<th width="20%" scope="col">등록일</th>
 	  	</tr>
 		<c:forEach var="notice" items="${listModel}">
-		<tr>
+		<tr bgcolor="FFFBF2">
 			<td align="center">${notice.id}</td>
 			<td><a href="/kmove/NoticeDetailView?id=${notice.id}">${notice.title}</a></td>
 			<td align="center">${notice.writer}</td>
@@ -44,7 +48,7 @@
 		</tr>
 		</c:forEach>
 		
-		<table width="980" border="0" cellspacing="0" align="center">
+		<table width="800" border="0" cellspacing="0" align="center">
 		<tr>
     	<td width=30%>
     	
@@ -58,13 +62,22 @@
 		<input type="text" size="20" maxlength="30" name="keyword" />
 		<input type="submit" value="검색" />
 	    </form>
+	    
 	    </td>
-	    <td align="right" WIDTH="30%"><a href="/kmove/pages/writeNoticeForm.jsp">[글쓰기]</a></td>
-		</tr>
+	    <c:if test="${authUser.id=='관리자'}"><!-- 세션에서 가져온 아이디가 '관리자'면 [글쓰기]버튼 생성 -->
+	    <td align="right" WIDTH="30%"><a href="/kmove/NoticeForm">[글쓰기]</a></td>
+	    </c:if>
+	   	<c:if test="${authUser.id!='관리자'}"><!-- 관리자가 아니면 그냥 빈칸 생성(모양 안깨지게!) -->
+	    <td align="right" WIDTH="30%"></td>
+	    </c:if>
+	   	</tr>
 		</table>
 	</c:otherwise>
 </c:choose>
 </table>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>

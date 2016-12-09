@@ -18,18 +18,22 @@
 <title>A/S게시판</title>
 </head>
 <body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 <tool:shading/>
 <center><font size="5">A/S 게시판</font></center>
 <tool:shading/>
 
-<table width="980" border="1"  cellspacing="0" align="center">
+<table width="800" cellspacing="0" align="center" cellpadding="10">
 <c:choose>	
 	<c:when test="${boardList.messageTotalCount == 0 }">
 		<center>등록된 글이 없습니다.</center><br>
 		<center><a href="/kmove/BoardView">[목록으로]</a>&nbsp;&nbsp;<a href="/kmove/pages/writeBoardForm.jsp">[글쓰기]</a></center>
 	</c:when>
 	<c:otherwise>
-		<tr>
+		<tr bgcolor="FFD88E">
 	    	<th width="10%" scope="col">번호</th>
 	    	<th width="15%" scope="col">제품군</th>
 	    	<th width="40%" scope="col">제목</th>
@@ -37,7 +41,7 @@
 	    	<th width="20%" scope="col">등록일</th>
 	  	</tr>
 		<c:forEach var="board" items="${listModel}">
-		<tr>
+		<tr bgcolor="FFFBF2">
 			<td align="center">${board.id}</td>
 			<td align="center">${board.category}</td>
 			<td><a href="/kmove/BoardDetailView?id=${board.id}">${board.title}</a></td>
@@ -46,12 +50,12 @@
 		</tr>
 		</c:forEach>
 		
-		<table width="980" border="0" cellspacing="0" align="center">
+		<table width="800" border="0" cellspacing="0" align="center">
 		<tr>
     	<td width=30%>
     	
     	<c:forEach var="i" begin="1" end="${boardList.pageTotalCount-1}">
-    	<a href="/kmove/NoticeView?page=${i}">[${i}]</a>
+    	<a href="/kmove/BoardView?page=${i}">[${i}]</a>
     	</c:forEach>
       
 	    </td>
@@ -60,13 +64,19 @@
 		<input type="text" size="20" maxlength="30" name="keyword" />
 		<input type="submit" value="검색" />
 	    </form>
+	    
 	    </td>
-	    <td align="right" WIDTH="30%"><a href="/kmove/pages/writeBoardForm.jsp">[글쓰기]</a></td>
+
+	    <td align="right" WIDTH="30%"><a href="/kmove/BoardForm">[글쓰기]</a></td>
+
 		</tr>
 		</table>
 	</c:otherwise>
 </c:choose>
 </table>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>

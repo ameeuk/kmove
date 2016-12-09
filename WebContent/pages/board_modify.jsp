@@ -7,31 +7,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>공지사항 수정</title>
+<title>A/S 수정</title>
 </head>
 <body>
+<center>
+<jsp:include page="/Header.jsp"/>
+</center>
+
 <tool:shading/>
 <center><font size="5">A/S 수정</font></center>
 <tool:shading/>
 
 <form action="/kmove/pages/modifyBoard.jsp" method="post">
 <input type="hidden" name="id" value="${board.id}">
-<table border="1" align="center">
+<table border="0" align="center" cellpadding="10">
   <tr>
-    <th scope="row" width=20%>제목</th>
-    <td><input type="text" name="title" size="50" value="${board.title}" required></td>
+    <th scope="row" width=20% bgcolor="FFD88E">제목</th>
+    <td bgcolor="FFFBF2"><input type="text" name="title" size="50" value="${board.title}" required></td>
   </tr>
   <tr>
-    <th scope="row">작성자</th>
-    <td><input type="hidden" name="writer" size="20" value="${board.writer}">${board.writer}</td>
+    <th scope="row" bgcolor="FFD88E">작성자</th>
+    <td bgcolor="FFFBF2"><input type="hidden" name="writer" size="20" value="${board.writer}">${board.writer}</td>
   </tr>
   <tr>
-    <th scope="row">모델명</th>
-    <td><input type="text" name="model" size="50" value="${board.model}"></td>
+    <th scope="row" bgcolor="FFD88E">모델명</th>
+    <td bgcolor="FFFBF2"><input type="text" name="model" size="50" value="${board.model}"></td>
   </tr>
   <tr>
-    <th scope="row">제품군</th>
-    <td>
+    <th scope="row" bgcolor="FFD88E">제품군</th>
+    <td bgcolor="FFFBF2">
         <select name="category" size="1">
         <option value="mouse">마우스</option>
         <option value="keyboard">키보드</option>
@@ -42,15 +46,17 @@
     </td>
   </tr>
   <tr>
-    <th scope="row">내용</th>
-    <td><textarea name="content" cols="50" rows="10" required>${board.content}</textarea></td>
+    <th scope="row" bgcolor="FFD88E">내용</th>
+    <td bgcolor="FFFBF2"><textarea name="content" cols="50" rows="10" required>${board.content}</textarea></td>
   </tr>
-  <tr>
+  <tr bgcolor="FFFBF2">
     <th colspan="2" scope="row"><input type="submit" value="확인"/>&nbsp;<input type="button" value="뒤로가기" onclick="history.back();" /></th>
-    
     </tr>
   </table>
 </form>
 
+<center>
+<jsp:include page="/Footer.jsp"/>
+</center>
 </body>
 </html>
